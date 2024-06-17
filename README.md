@@ -146,3 +146,4 @@ SOFTWARE.
 ```
 ![screen_shot](/app_screenshot_001.png)
 ![screen_shot](/app_screenshot_002.png)
+![screen_shot](/app_screenshot_003.png)
