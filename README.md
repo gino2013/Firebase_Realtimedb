@@ -1,5 +1,3 @@
-Certainly! Here is the complete `README.md` file in English:
-
 ```markdown
 # MedicalDeviceApp
 
@@ -13,7 +11,7 @@ MedicalDeviceApp is an application built with SwiftUI and Firebase Realtime Data
 
 ## File Structure
 
-```
+```plaintext
 MedicalDeviceApp/
 ├── MedicalDeviceApp.swift        # Entry point of the application
 ├── AppDelegate.swift             # Initializes Firebase
@@ -118,14 +116,12 @@ playground.xcworkspace
 
 ## Contributing
 
-Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome! Please read the CONTRIBUTING.md for guidelines.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the LICENSE file for details.
 ```
 
 This `README.md` provides a clear and concise overview of your project, including installation steps, usage instructions, file structure, and other essential information. Feel free to modify it according to your project's specific details and needs.
-
-![app_screenshot](/app_screenshot_001.PNG)
-![app_screenshot](/app_screenshot_002.PNG)
+```
