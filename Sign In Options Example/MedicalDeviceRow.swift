@@ -66,5 +66,10 @@ struct MedicalDeviceRow: View {
             .padding(.top)
         }
         .padding()
+        .onReceive(viewModel.$medicalDevices) { devices in
+            if let updatedDevice = devices.first(where: { $0.id == device.id }) {
+                self.device = updatedDevice
+            }
+        }
     }
 }
