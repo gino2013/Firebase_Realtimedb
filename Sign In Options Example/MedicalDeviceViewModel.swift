@@ -37,4 +37,16 @@ class MedicalDeviceViewModel: ObservableObject {
         // 將設備資料寫回Firebase
         dbRef.child("medicalDevices").child(id).setValue(device.toDictionary())
     }
+
+    // 新增醫療設備資料
+    func addMedicalDevice(_ device: MedicalDevice) {
+        let newDeviceRef = dbRef.child("medicalDevices").childByAutoId()
+        newDeviceRef.setValue(device.toDictionary())
+    }
+
+    // 刪除Firebase中的醫療設備資料
+    func deleteMedicalDevice(_ device: MedicalDevice) {
+        guard let id = device.id else { return }
+        dbRef.child("medicalDevices").child(id).removeValue()
+    }
 }
