@@ -1,6 +1,5 @@
 import SwiftUI
 
-// 顯示和編輯每個醫療設備的視圖
 struct MedicalDeviceRow: View {
     @ObservedObject var viewModel: MedicalDeviceViewModel // 觀察ViewModel中的資料變化
     @State private var device: MedicalDevice // 本地設備資料的狀態
@@ -160,6 +159,37 @@ struct MedicalDeviceRow: View {
                 }
                 .padding(.top)
             }
+
+            // 顯示和編輯量測數值
+            VStack(alignment: .leading) {
+                Text("Measurements:").bold()
+                ForEach(device.measurements.indices, id: \.self) { index in
+                    HStack {
+                        TextField("Measurement", value: Binding(
+                            get: { device.measurements[index] },
+                            set: { device.measurements[index] = $0 }
+                        ), formatter: doubleFormatter)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        Button(action: {
+                            device.measurements.remove(at: index)
+                        }) {
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
+                        }
+                    }
+                }
+                Button(action: {
+                    device.measurements.append(0.0)
+                }) {
+                    Text("Add Measurement")
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                .padding(.top)
+            }
             
             // 保存更改按鈕
             Button(action: {
@@ -195,4 +225,11 @@ struct MedicalDeviceRow: View {
             }
         }
     }
+}
+
+private var doubleFormatter: NumberFormatter {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    formatter.maximumFractionDigits = 2
+    return formatter
 }

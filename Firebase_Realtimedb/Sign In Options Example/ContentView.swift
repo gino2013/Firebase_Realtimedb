@@ -48,6 +48,7 @@ struct AddDeviceView: View {
     @State private var model = ""
     @State private var description = ""
     @State private var features = ""
+    @State private var measurements = [String: String]()
 
     var body: some View {
         NavigationView {
@@ -58,10 +59,59 @@ struct AddDeviceView: View {
                 TextField("Model", text: $model)
                 TextField("Description", text: $description)
                 TextField("Features (comma separated)", text: $features)
+                
+                Section(header: Text("Measurements")) {
+                    ForEach(measurements.keys.sorted(), id: \.self) { key in
+                        HStack {
+                            TextField("Measurement Name", text: Binding(
+                                get: { key },
+                                set: { newKey in
+                                    if let value = measurements.removeValue(forKey: key) {
+                                        measurements[newKey] = value
+                                    }
+                                }
+                            ))
+                            TextField("Value", text: Binding(
+                                get: { measurements[key] ?? "" },
+                                set: { measurements[key] = $0 }
+                            ))
+                            .keyboardType(.decimalPad)
+                            Button(action: {
+                                measurements.removeValue(forKey: key)
+                            }) {
+                                Image(systemName: "trash")
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
+                    Button(action: {
+                        measurements[""] = ""
+                    }) {
+                        Text("Add Measurement")
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                }
             }
             .navigationBarTitle("Add Device", displayMode: .inline)
             .navigationBarItems(trailing: Button("Save") {
-                let newDevice = MedicalDevice(id: nil, name: name, type: type, brand: brand, model: model, description: description, features: features.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) })
+                let newDevice = MedicalDevice(
+                    id: nil,
+                    name: name,
+                    type: type,
+                    brand: brand,
+                    model: model,
+                    description: description,
+                    features: features.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) },
+                    measurements: measurements.reduce(into: [Double]()) { result, item in
+                        if let value = Double(item.value) {
+                            result.append(value)
+                        }
+                    }
+                )
                 viewModel.addMedicalDevice(newDevice)
                 presentationMode.wrappedValue.dismiss()
             })

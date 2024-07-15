@@ -9,6 +9,7 @@ struct MedicalDevice: Codable, Identifiable {
     var model: String // 設備型號
     var description: String // 設備描述
     var features: [String] // 設備特性列表
+    var measurements: [Double] // 記錄量測到的數值
 
     // 將模型轉換為字典，以便存儲到Firebase
     func toDictionary() -> [String: Any] {
@@ -18,7 +19,8 @@ struct MedicalDevice: Codable, Identifiable {
             "brand": brand,
             "model": model,
             "description": description,
-            "features": features
+            "features": features,
+            "measurements": measurements
         ]
     }
 }
