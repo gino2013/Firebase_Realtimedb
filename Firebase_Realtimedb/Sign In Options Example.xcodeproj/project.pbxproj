@@ -9,19 +9,13 @@
 /* Begin PBXBuildFile section */
 		067E9B66C6C754A7F35C6C67 /* Pods_Sign_In_Options_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D631B52D34405FBB768F028C /* Pods_Sign_In_Options_Example.framework */; };
 		A2446F492C44A8E6006B5A0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F3B2C44A8E3006B5A0B /* AppDelegate.swift */; };
-		A2446F4A2C44A8E6006B5A0B /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F3C2C44A8E3006B5A0B /* StartView.swift */; };
-		A2446F4B2C44A8E6006B5A0B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F3D2C44A8E4006B5A0B /* LoginView.swift */; };
 		A2446F4C2C44A8E6006B5A0B /* MedicalDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F3E2C44A8E4006B5A0B /* MedicalDeviceRow.swift */; };
 		A2446F4D2C44A8E6006B5A0B /* MedicalDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F3F2C44A8E4006B5A0B /* MedicalDevice.swift */; };
-		A2446F4E2C44A8E6006B5A0B /* RealtimedbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F402C44A8E4006B5A0B /* RealtimedbView.swift */; };
 		A2446F4F2C44A8E6006B5A0B /* MedicalDeviceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F412C44A8E4006B5A0B /* MedicalDeviceViewModel.swift */; };
 		A2446F502C44A8E6006B5A0B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F422C44A8E5006B5A0B /* ContentView.swift */; };
 		A2446F512C44A8E6006B5A0B /* MedicalDeviceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F432C44A8E5006B5A0B /* MedicalDeviceApp.swift */; };
-		A2446F522C44A8E6006B5A0B /* Sign_In_Options_ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F442C44A8E5006B5A0B /* Sign_In_Options_ExampleApp.swift */; };
-		A2446F532C44A8E6006B5A0B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F452C44A8E5006B5A0B /* HomeView.swift */; };
 		A2446F542C44A8E6006B5A0B /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F462C44A8E5006B5A0B /* Color+Extensions.swift */; };
-		A2446F552C44A8E6006B5A0B /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F472C44A8E6006B5A0B /* AuthService.swift */; };
-		A2446F562C44A8E6006B5A0B /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2446F482C44A8E6006B5A0B /* WelcomeView.swift */; };
+		A296AD622C44F53900AF5531 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A296AD612C44F53900AF5531 /* BLEManager.swift */; };
 		F438AAB42AAB9EFA0045C331 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F438AAB32AAB9EFA0045C331 /* Assets.xcassets */; };
 		F438AAB72AAB9EFA0045C331 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F438AAB62AAB9EFA0045C331 /* Preview Assets.xcassets */; };
 		F47757B52AB3D23E00F2A339 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F47757B42AB3D23E00F2A339 /* GoogleService-Info.plist */; };
@@ -31,19 +25,13 @@
 		9B47771A4E751CD9DAED6E6C /* Pods-Sign In Options Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sign In Options Example.debug.xcconfig"; path = "Target Support Files/Pods-Sign In Options Example/Pods-Sign In Options Example.debug.xcconfig"; sourceTree = "<group>"; };
 		A2446F3A2C44A8E1006B5A0B /* Sign In Options Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sign In Options Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		A2446F3B2C44A8E3006B5A0B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A2446F3C2C44A8E3006B5A0B /* StartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
-		A2446F3D2C44A8E4006B5A0B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A2446F3E2C44A8E4006B5A0B /* MedicalDeviceRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicalDeviceRow.swift; sourceTree = "<group>"; };
 		A2446F3F2C44A8E4006B5A0B /* MedicalDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicalDevice.swift; sourceTree = "<group>"; };
-		A2446F402C44A8E4006B5A0B /* RealtimedbView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealtimedbView.swift; sourceTree = "<group>"; };
 		A2446F412C44A8E4006B5A0B /* MedicalDeviceViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicalDeviceViewModel.swift; sourceTree = "<group>"; };
 		A2446F422C44A8E5006B5A0B /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A2446F432C44A8E5006B5A0B /* MedicalDeviceApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicalDeviceApp.swift; sourceTree = "<group>"; };
-		A2446F442C44A8E5006B5A0B /* Sign_In_Options_ExampleApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sign_In_Options_ExampleApp.swift; sourceTree = "<group>"; };
-		A2446F452C44A8E5006B5A0B /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A2446F462C44A8E5006B5A0B /* Color+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
-		A2446F472C44A8E6006B5A0B /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		A2446F482C44A8E6006B5A0B /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		A296AD612C44F53900AF5531 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
 		D631B52D34405FBB768F028C /* Pods_Sign_In_Options_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sign_In_Options_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F438AAAC2AAB9EF20045C331 /* Sign In Options Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sign In Options Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F438AAB32AAB9EFA0045C331 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -105,19 +93,13 @@
 			isa = PBXGroup;
 			children = (
 				A2446F3B2C44A8E3006B5A0B /* AppDelegate.swift */,
-				A2446F472C44A8E6006B5A0B /* AuthService.swift */,
 				A2446F462C44A8E5006B5A0B /* Color+Extensions.swift */,
 				A2446F422C44A8E5006B5A0B /* ContentView.swift */,
-				A2446F452C44A8E5006B5A0B /* HomeView.swift */,
-				A2446F3D2C44A8E4006B5A0B /* LoginView.swift */,
 				A2446F3F2C44A8E4006B5A0B /* MedicalDevice.swift */,
 				A2446F432C44A8E5006B5A0B /* MedicalDeviceApp.swift */,
 				A2446F3E2C44A8E4006B5A0B /* MedicalDeviceRow.swift */,
 				A2446F412C44A8E4006B5A0B /* MedicalDeviceViewModel.swift */,
-				A2446F402C44A8E4006B5A0B /* RealtimedbView.swift */,
-				A2446F442C44A8E5006B5A0B /* Sign_In_Options_ExampleApp.swift */,
-				A2446F3C2C44A8E3006B5A0B /* StartView.swift */,
-				A2446F482C44A8E6006B5A0B /* WelcomeView.swift */,
+				A296AD612C44F53900AF5531 /* BLEManager.swift */,
 				F443A5CC2AB1526E00590C82 /* Sign In Options Example.entitlements */,
 				F443A5C72AAFBCEC00590C82 /* Sign-In-Options-Example-Info.plist */,
 				F438AAB32AAB9EFA0045C331 /* Assets.xcassets */,
@@ -258,19 +240,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2446F4C2C44A8E6006B5A0B /* MedicalDeviceRow.swift in Sources */,
-				A2446F4B2C44A8E6006B5A0B /* LoginView.swift in Sources */,
 				A2446F512C44A8E6006B5A0B /* MedicalDeviceApp.swift in Sources */,
 				A2446F502C44A8E6006B5A0B /* ContentView.swift in Sources */,
 				A2446F4D2C44A8E6006B5A0B /* MedicalDevice.swift in Sources */,
-				A2446F532C44A8E6006B5A0B /* HomeView.swift in Sources */,
-				A2446F552C44A8E6006B5A0B /* AuthService.swift in Sources */,
 				A2446F4F2C44A8E6006B5A0B /* MedicalDeviceViewModel.swift in Sources */,
-				A2446F4E2C44A8E6006B5A0B /* RealtimedbView.swift in Sources */,
 				A2446F492C44A8E6006B5A0B /* AppDelegate.swift in Sources */,
-				A2446F522C44A8E6006B5A0B /* Sign_In_Options_ExampleApp.swift in Sources */,
-				A2446F4A2C44A8E6006B5A0B /* StartView.swift in Sources */,
+				A296AD622C44F53900AF5531 /* BLEManager.swift in Sources */,
 				A2446F542C44A8E6006B5A0B /* Color+Extensions.swift in Sources */,
-				A2446F562C44A8E6006B5A0B /* WelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
