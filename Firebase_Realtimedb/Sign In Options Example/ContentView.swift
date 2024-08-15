@@ -8,7 +8,9 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(viewModel.medicalDevices.indices, id: \.self) { index in
-                    NavigationLink(destination: DeviceDetailView(device: viewModel.medicalDevices[index])) {
+                    NavigationLink(
+                        destination: DeviceDetailView(viewModel: viewModel, device: viewModel.medicalDevices[index])
+                    ) {
                         Text(viewModel.medicalDevices[index].name)
                     }
                 }
@@ -21,7 +23,7 @@ struct ContentView: View {
                         showingAddDevice = true
                     }
                     .sheet(isPresented: $showingAddDevice) {
-                        AddDeviceView(viewModel: viewModel)
+                        AddDeviceView(viewModel: viewModel)  // 传递 viewModel 到 AddDeviceView
                     }
                     Button("Refresh") {
                         viewModel.fetchMedicalDevices()
