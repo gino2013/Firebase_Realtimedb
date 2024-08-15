@@ -2,14 +2,14 @@ import SwiftUI
 
 struct MedicalDeviceRow: View {
     @ObservedObject var viewModel: MedicalDeviceViewModel // 觀察ViewModel中的資料變化
-    @State private var device: MedicalDevice // 本地設備資料的狀態
+    @Binding var device: MedicalDevice // 本地設備資料的狀態
     @Environment(\.presentationMode) var presentationMode
     @State private var isEditingField = [String: Bool]() // 追蹤每個欄位是否在編輯狀態
 
     // 初始化，設置ViewModel和設備資料
-    init(viewModel: MedicalDeviceViewModel, device: MedicalDevice) {
+    init(viewModel: MedicalDeviceViewModel, device: Binding<MedicalDevice>) {
         self.viewModel = viewModel
-        self._device = State(initialValue: device)
+        self._device = device
     }
 
     var body: some View {
@@ -166,8 +166,8 @@ struct MedicalDeviceRow: View {
                 ForEach(device.measurements.indices, id: \.self) { index in
                     HStack {
                         TextField("Measurement", value: Binding(
-                            get: { device.measurements[index] },
-                            set: { device.measurements[index] = $0 }
+                            get: { device.measurements[index].value },
+                            set: { device.measurements[index].value = $0 }
                         ), formatter: doubleFormatter)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         Button(action: {
@@ -179,7 +179,7 @@ struct MedicalDeviceRow: View {
                     }
                 }
                 Button(action: {
-                    device.measurements.append(0.0)
+                    device.measurements.append(DeviceMeasurement(timestamp: Date().timeIntervalSince1970, unit: "default", value: "", user_uuid: viewModel.currentUserUUID, device_uuid: device.id))
                 }) {
                     Text("Add Measurement")
                         .padding()
@@ -233,3 +233,4 @@ private var doubleFormatter: NumberFormatter {
     formatter.maximumFractionDigits = 2
     return formatter
 }
+

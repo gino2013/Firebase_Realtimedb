@@ -1,5 +1,6 @@
 import SwiftUI
 import FirebaseCore
+import CoreData
 
 // AppDelegate類負責應用程式的啟動設置
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -8,6 +9,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // 配置Firebase
         FirebaseApp.configure()
+        testCoreDataFunctionality()
         return true
     }
+    
+    // 保存Core Data上下文
+    func applicationWillTerminate(_ application: UIApplication) {
+        PersistenceController.shared.saveContext()
+    }
 }
+ 

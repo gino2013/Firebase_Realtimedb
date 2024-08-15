@@ -7,9 +7,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.medicalDevices) { device in
-                    NavigationLink(destination: MedicalDeviceRow(viewModel: viewModel, device: device)) {
-                        Text(device.name)
+                ForEach(viewModel.medicalDevices.indices, id: \.self) { index in
+                    NavigationLink(destination: DeviceDetailView(device: viewModel.medicalDevices[index])) {
+                        Text(viewModel.medicalDevices[index].name)
                     }
                 }
                 .onDelete(perform: deleteDevice)
@@ -29,6 +29,9 @@ struct ContentView: View {
                 }
             )
         }
+        .onAppear {
+            viewModel.fetchMedicalDevices()
+        }
     }
 
     private func deleteDevice(at offsets: IndexSet) {
@@ -38,6 +41,88 @@ struct ContentView: View {
         }
     }
 }
+
+
+//struct ContentView: View {
+//    @StateObject var viewModel = MedicalDeviceViewModel()
+//    @State private var showingAddDevice = false
+//
+//    var body: some View {
+//        NavigationView {
+//            List {
+//                ForEach(viewModel.medicalDevices.indices, id: \.self) { index in
+//                    NavigationLink(destination: MedicalDeviceRow(viewModel: viewModel, device: $viewModel.medicalDevices[index])) {
+//                        Text(viewModel.medicalDevices[index].name)
+//                    }
+//                }
+//                .onDelete(perform: deleteDevice)
+//            }
+//            .navigationBarTitle("Medical Devices")
+//            .navigationBarItems(trailing:
+//                HStack {
+//                    Button("Add") {
+//                        showingAddDevice = true
+//                    }
+//                    .sheet(isPresented: $showingAddDevice) {
+//                        AddDeviceView(viewModel: viewModel)
+//                    }
+//                    Button("Refresh") {
+//                        viewModel.fetchMedicalDevices()
+//                    }
+//                }
+//            )
+//        }
+//        .onAppear {
+//            viewModel.fetchMedicalDevices()
+//        }
+//    }
+//
+//    private func deleteDevice(at offsets: IndexSet) {
+//        offsets.forEach { index in
+//            let device = viewModel.medicalDevices[index]
+//            viewModel.deleteMedicalDevice(device)
+//        }
+//    }
+//}
+
+//struct ContentView: View {
+//    @StateObject var viewModel = MedicalDeviceViewModel()
+//    @State private var showingAddDevice = false
+//
+//    var body: some View {
+//        NavigationView {
+//            List {
+//                ForEach(viewModel.medicalDevices.indices, id: \.self) { index in
+//                    NavigationLink(destination: MedicalDeviceRow(viewModel: viewModel, device: $viewModel.medicalDevices[index])) {
+//                        Text(viewModel.medicalDevices[index].name)
+//                    }
+//                }
+//                .onDelete(perform: deleteDevice)
+//            }
+//            .navigationBarTitle("Medical Devices")
+//            .navigationBarItems(trailing:
+//                HStack {
+//                    Button("Add") {
+//                        showingAddDevice = true
+//                    }
+//                    .sheet(isPresented: $showingAddDevice) {
+//                        AddDeviceView(viewModel: viewModel)
+//                    }
+//                    Button("Refresh") {
+//                        viewModel.fetchMedicalDevices()
+//                    }
+//                }
+//            )
+//        }
+//    }
+//
+//    private func deleteDevice(at offsets: IndexSet) {
+//        offsets.forEach { index in
+//            let device = viewModel.medicalDevices[index]
+//            viewModel.deleteMedicalDevice(device)
+//        }
+//    }
+//}
 
 struct AddDeviceView: View {
     @ObservedObject var viewModel: MedicalDeviceViewModel
@@ -106,11 +191,7 @@ struct AddDeviceView: View {
                     model: model,
                     description: description,
                     features: features.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) },
-                    measurements: measurements.reduce(into: [Double]()) { result, item in
-                        if let value = Double(item.value) {
-                            result.append(value)
-                        }
-                    }
+                    measurements: measurements.map { DeviceMeasurement(timestamp: Date().timeIntervalSince1970, unit: $0.key, value: $0.value, user_uuid: viewModel.currentUserUUID, device_uuid: nil) }
                 )
                 viewModel.addMedicalDevice(newDevice)
                 presentationMode.wrappedValue.dismiss()
@@ -119,38 +200,3 @@ struct AddDeviceView: View {
     }
 }
 
-//struct ContentView: View {
-//    @StateObject var viewModel = MedicalDeviceViewModel()
-//
-//    var body: some View {
-//        NavigationView {
-//            List(viewModel.medicalDevices) { device in
-//                NavigationLink(destination: MedicalDeviceRow(viewModel: viewModel, device: device)) {
-//                    Text(device.name)
-//                }
-//            }
-//            .navigationBarTitle("Medical Devices")
-//            .navigationBarItems(trailing: Button("Refresh") {
-//                viewModel.fetchMedicalDevices()
-//            })
-//        }
-//    }
-//}
-
-//// 主內容視圖，顯示醫療設備列表
-//struct ContentView: View {
-//    @ObservedObject var viewModel = MedicalDeviceViewModel() // 觀察ViewModel中的資料變化
-//
-//    var body: some View {
-//        NavigationView {
-//            // 列表顯示所有醫療設備
-//            List(viewModel.medicalDevices) { device in
-//                // 每個列表項都有導航鏈接到詳細編輯視圖
-//                NavigationLink(destination: MedicalDeviceRow(viewModel: viewModel, device: device)) {
-//                    Text(device.name)
-//                }
-//            }
-//            .navigationBarTitle("Medical Devices") // 設置導航欄標題
-//        }
-//    }
-//}

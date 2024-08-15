@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Device" representedClassName="Device" syncable="YES" codeGenerationType="class">
+        <attribute name="brand" optional="YES" attributeType="String"/>
+        <attribute name="descriptions" optional="YES" attributeType="String"/>
+        <attribute name="device_uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="features" optional="YES" attributeType="String"/>
+        <attribute name="model" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="user_uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="measurement" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Measurement" inverseName="device" inverseEntity="Measurement"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="device" inverseEntity="User"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="device_uuid"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="HealthKitData" representedClassName="HealthKitData" syncable="YES" codeGenerationType="class">
+        <attribute name="source" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="unit" optional="YES" attributeType="String"/>
+        <attribute name="user_uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="healthkit" inverseEntity="User"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="timestamp"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Measurement" representedClassName="Measurement" syncable="YES" codeGenerationType="class">
+        <attribute name="device_uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="timestamp" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="unit" optional="YES" attributeType="String"/>
+        <attribute name="user_uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+        <relationship name="device" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="measurement" inverseEntity="Device"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="timestamp"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
+        <attribute name="bluetooth" optional="YES" attributeType="String"/>
+        <attribute name="eid" optional="YES" attributeType="String"/>
+        <attribute name="ios_version" optional="YES" attributeType="String"/>
+        <attribute name="iphone_name" optional="YES" attributeType="String"/>
+        <attribute name="model_number" optional="YES" attributeType="String"/>
+        <attribute name="seid" optional="YES" attributeType="String"/>
+        <attribute name="serial_number" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="user_uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="wifi_address" optional="YES" attributeType="String"/>
+        <relationship name="device" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Device" inverseName="user" inverseEntity="Device"/>
+        <relationship name="healthkit" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HealthKitData" inverseName="user" inverseEntity="HealthKitData"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="user_uuid"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+</model>
