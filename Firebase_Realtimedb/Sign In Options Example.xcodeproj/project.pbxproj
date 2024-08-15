@@ -24,6 +24,9 @@
 		A2C753962C6C94B400492B60 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C753952C6C94B400492B60 /* Persistence.swift */; };
 		A2E15C4B2C6DD60400AE4C41 /* CoredataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E15C4A2C6DD60400AE4C41 /* CoredataTest.swift */; };
 		A2E15C502C6DF0FB00AE4C41 /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E15C4F2C6DF0FB00AE4C41 /* DeviceDetailView.swift */; };
+		A2E15C522C6E08E200AE4C41 /* UserDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E15C512C6E08E200AE4C41 /* UserDevice.swift */; };
+		A2E15C542C6E092400AE4C41 /* UserDeviceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E15C532C6E092400AE4C41 /* UserDeviceViewModel.swift */; };
+		A2E15C562C6E094600AE4C41 /* UserDeviceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E15C552C6E094600AE4C41 /* UserDeviceInfoView.swift */; };
 		F438AAB42AAB9EFA0045C331 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F438AAB32AAB9EFA0045C331 /* Assets.xcassets */; };
 		F438AAB72AAB9EFA0045C331 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F438AAB62AAB9EFA0045C331 /* Preview Assets.xcassets */; };
 		F47757B52AB3D23E00F2A339 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F47757B42AB3D23E00F2A339 /* GoogleService-Info.plist */; };
@@ -48,6 +51,9 @@
 		A2C753952C6C94B400492B60 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		A2E15C4A2C6DD60400AE4C41 /* CoredataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoredataTest.swift; sourceTree = "<group>"; };
 		A2E15C4F2C6DF0FB00AE4C41 /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
+		A2E15C512C6E08E200AE4C41 /* UserDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDevice.swift; sourceTree = "<group>"; };
+		A2E15C532C6E092400AE4C41 /* UserDeviceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDeviceViewModel.swift; sourceTree = "<group>"; };
+		A2E15C552C6E094600AE4C41 /* UserDeviceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDeviceInfoView.swift; sourceTree = "<group>"; };
 		D631B52D34405FBB768F028C /* Pods_Sign_In_Options_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sign_In_Options_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F438AAAC2AAB9EF20045C331 /* Sign In Options Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sign In Options Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F438AAB32AAB9EFA0045C331 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,6 +136,9 @@
 				F438AAB52AAB9EFA0045C331 /* Preview Content */,
 				A2446F3A2C44A8E1006B5A0B /* Sign In Options Example-Bridging-Header.h */,
 				A2C753922C6C84DF00492B60 /* LocalData.xcdatamodeld */,
+				A2E15C512C6E08E200AE4C41 /* UserDevice.swift */,
+				A2E15C532C6E092400AE4C41 /* UserDeviceViewModel.swift */,
+				A2E15C552C6E094600AE4C41 /* UserDeviceInfoView.swift */,
 			);
 			path = "Sign In Options Example";
 			sourceTree = "<group>";
@@ -264,6 +273,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A24B6BBD2C6CA33D00833C13 /* UserEntity.swift in Sources */,
+				A2E15C562C6E094600AE4C41 /* UserDeviceInfoView.swift in Sources */,
+				A2E15C542C6E092400AE4C41 /* UserDeviceViewModel.swift in Sources */,
 				A24B6BC12C6CA3AE00833C13 /* HealthkitEntity.swift in Sources */,
 				A2446F4C2C44A8E6006B5A0B /* MedicalDeviceRow.swift in Sources */,
 				A2446F512C44A8E6006B5A0B /* MedicalDeviceApp.swift in Sources */,
@@ -272,6 +283,7 @@
 				A2446F4F2C44A8E6006B5A0B /* MedicalDeviceViewModel.swift in Sources */,
 				A24B6BD62C6DCF9200833C13 /* LocalData.xcdatamodeld in Sources */,
 				A2E15C4B2C6DD60400AE4C41 /* CoredataTest.swift in Sources */,
+				A2E15C522C6E08E200AE4C41 /* UserDevice.swift in Sources */,
 				A24B6BC32C6CA3D300833C13 /* MeasurementEntity.swift in Sources */,
 				A24B6BBF2C6CA39600833C13 /* DeviceEntity.swift in Sources */,
 				A2446F492C44A8E6006B5A0B /* AppDelegate.swift in Sources */,

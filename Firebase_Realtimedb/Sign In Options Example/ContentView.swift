@@ -2,7 +2,9 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var viewModel = MedicalDeviceViewModel()
+    @StateObject var userDeviceViewModel = UserDeviceViewModel()
     @State private var showingAddDevice = false
+    @State private var showingUserDeviceInfo = false
 
     var body: some View {
         NavigationView {
@@ -15,6 +17,13 @@ struct ContentView: View {
                     }
                 }
                 .onDelete(perform: deleteDevice)
+
+                NavigationLink(
+                    destination: UserDeviceInfoView(viewModel: userDeviceViewModel),
+                    isActive: $showingUserDeviceInfo
+                ) {
+                    Text("View Device Info")
+                }
             }
             .navigationBarTitle("Medical Devices")
             .navigationBarItems(trailing:
@@ -23,7 +32,10 @@ struct ContentView: View {
                         showingAddDevice = true
                     }
                     .sheet(isPresented: $showingAddDevice) {
-                        AddDeviceView(viewModel: viewModel)  // 传递 viewModel 到 AddDeviceView
+                        AddDeviceView(viewModel: viewModel)
+                    }
+                    Button("Device Info") {
+                        showingUserDeviceInfo = true
                     }
                     Button("Refresh") {
                         viewModel.fetchMedicalDevices()
@@ -43,6 +55,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 
 //struct ContentView: View {
