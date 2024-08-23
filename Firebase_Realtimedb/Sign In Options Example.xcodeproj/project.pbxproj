@@ -20,6 +20,7 @@
 		A24B6BC12C6CA3AE00833C13 /* HealthkitEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B6BC02C6CA3AE00833C13 /* HealthkitEntity.swift */; };
 		A24B6BC32C6CA3D300833C13 /* MeasurementEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24B6BC22C6CA3D300833C13 /* MeasurementEntity.swift */; };
 		A24B6BD62C6DCF9200833C13 /* LocalData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A2C753922C6C84DF00492B60 /* LocalData.xcdatamodeld */; };
+		A276D8962C76E56A004C5D61 /* Coredata_INHERITANCE.swift in Sources */ = {isa = PBXBuildFile; fileRef = A276D8952C76E56A004C5D61 /* Coredata_INHERITANCE.swift */; };
 		A296AD622C44F53900AF5531 /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A296AD612C44F53900AF5531 /* BLEManager.swift */; };
 		A2C753962C6C94B400492B60 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C753952C6C94B400492B60 /* Persistence.swift */; };
 		A2E15C4B2C6DD60400AE4C41 /* CoredataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E15C4A2C6DD60400AE4C41 /* CoredataTest.swift */; };
@@ -46,6 +47,7 @@
 		A24B6BBE2C6CA39600833C13 /* DeviceEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceEntity.swift; sourceTree = "<group>"; };
 		A24B6BC02C6CA3AE00833C13 /* HealthkitEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthkitEntity.swift; sourceTree = "<group>"; };
 		A24B6BC22C6CA3D300833C13 /* MeasurementEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementEntity.swift; sourceTree = "<group>"; };
+		A276D8952C76E56A004C5D61 /* Coredata_INHERITANCE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coredata_INHERITANCE.swift; sourceTree = "<group>"; };
 		A296AD612C44F53900AF5531 /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
 		A2C753932C6C84DF00492B60 /* LocalData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalData.xcdatamodel; sourceTree = "<group>"; };
 		A2C753952C6C94B400492B60 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				A2E15C512C6E08E200AE4C41 /* UserDevice.swift */,
 				A2E15C532C6E092400AE4C41 /* UserDeviceViewModel.swift */,
 				A2E15C552C6E094600AE4C41 /* UserDeviceInfoView.swift */,
+				A276D8952C76E56A004C5D61 /* Coredata_INHERITANCE.swift */,
 			);
 			path = "Sign In Options Example";
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				A2446F492C44A8E6006B5A0B /* AppDelegate.swift in Sources */,
 				A296AD622C44F53900AF5531 /* BLEManager.swift in Sources */,
 				A2446F542C44A8E6006B5A0B /* Color+Extensions.swift in Sources */,
+				A276D8962C76E56A004C5D61 /* Coredata_INHERITANCE.swift in Sources */,
 				A2C753962C6C94B400492B60 /* Persistence.swift in Sources */,
 				A2E15C502C6DF0FB00AE4C41 /* DeviceDetailView.swift in Sources */,
 			);

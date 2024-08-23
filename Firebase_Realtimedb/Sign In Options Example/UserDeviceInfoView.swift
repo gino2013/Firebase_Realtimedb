@@ -7,69 +7,71 @@ struct UserDeviceInfoView: View {
 
     var body: some View {
         Form {
-            if var deviceInfo = deviceInfo {
+            if let deviceInfo = deviceInfo {  // 确保 deviceInfo 已被赋值
                 Section(header: Text("User Device Information")) {
                     HStack {
                         Text("Bluetooth:")
                         TextField("Bluetooth", text: Binding(
                             get: { deviceInfo.bluetooth },
-                            set: { deviceInfo.bluetooth = $0 }
+                            set: { self.deviceInfo?.bluetooth = $0 }
                         ))
                     }
                     HStack {
                         Text("EID:")
                         TextField("EID", text: Binding(
                             get: { deviceInfo.eid },
-                            set: { deviceInfo.eid = $0 }
+                            set: { self.deviceInfo?.eid = $0 }
                         ))
                     }
                     HStack {
                         Text("iOS Version:")
                         TextField("iOS Version", text: Binding(
                             get: { deviceInfo.ios_version },
-                            set: { deviceInfo.ios_version = $0 }
+                            set: { self.deviceInfo?.ios_version = $0 }
                         ))
                     }
                     HStack {
                         Text("iPhone Name:")
                         TextField("iPhone Name", text: Binding(
                             get: { deviceInfo.iphone_name },
-                            set: { deviceInfo.iphone_name = $0 }
+                            set: { self.deviceInfo?.iphone_name = $0 }
                         ))
                     }
                     HStack {
                         Text("Model Number:")
                         TextField("Model Number", text: Binding(
                             get: { deviceInfo.model_number },
-                            set: { deviceInfo.model_number = $0 }
+                            set: { self.deviceInfo?.model_number = $0 }
                         ))
                     }
                     HStack {
                         Text("SEID:")
                         TextField("SEID", text: Binding(
                             get: { deviceInfo.seid },
-                            set: { deviceInfo.seid = $0 }
+                            set: { self.deviceInfo?.seid = $0 }
                         ))
                     }
                     HStack {
                         Text("Serial Number:")
                         TextField("Serial Number", text: Binding(
                             get: { deviceInfo.serial_number },
-                            set: { deviceInfo.serial_number = $0 }
+                            set: { self.deviceInfo?.serial_number = $0 }
                         ))
                     }
                     HStack {
                         Text("WiFi Address:")
                         TextField("WiFi Address", text: Binding(
                             get: { deviceInfo.wifi_address },
-                            set: { deviceInfo.wifi_address = $0 }
+                            set: { self.deviceInfo?.wifi_address = $0 }
                         ))
                     }
                 }
 
                 Button(action: {
                     isSaving = true
-                    viewModel.saveUserDevice(deviceInfo)
+                    if let device = self.deviceInfo {
+                        viewModel.saveUserDevice(device)
+                    }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         isSaving = false  // 模拟保存完成后的反馈
                     }
@@ -89,7 +91,10 @@ struct UserDeviceInfoView: View {
         }
         .navigationBarTitle("Device Info", displayMode: .inline)
         .onAppear {
-            self.deviceInfo = viewModel.collectDeviceInformation()
+            // 自动收集设备信息并保存
+            let newDeviceInfo = viewModel.collectDeviceInformation()
+            self.deviceInfo = newDeviceInfo
+            viewModel.saveUserDevice(newDeviceInfo)  // 自动保存信息到 Firebase
         }
     }
 }

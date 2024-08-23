@@ -1,10 +1,16 @@
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
-    @StateObject var viewModel = MedicalDeviceViewModel()
-    @StateObject var userDeviceViewModel = UserDeviceViewModel()
+    @StateObject var viewModel: MedicalDeviceViewModel
+    @StateObject var userDeviceViewModel: UserDeviceViewModel
     @State private var showingAddDevice = false
     @State private var showingUserDeviceInfo = false
+
+    init(context: NSManagedObjectContext) {
+        _viewModel = StateObject(wrappedValue: MedicalDeviceViewModel())
+        _userDeviceViewModel = StateObject(wrappedValue: UserDeviceViewModel(context: context))
+    }
 
     var body: some View {
         NavigationView {
@@ -55,6 +61,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 
 

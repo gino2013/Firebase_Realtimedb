@@ -19,16 +19,19 @@
         </uniquenessConstraints>
     </entity>
     <entity name="HealthKitData" representedClassName="HealthKitData" syncable="YES" codeGenerationType="class">
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="hasUndeterminedDuration" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="sampleType" optional="YES" attributeType="String"/>
         <attribute name="source" optional="YES" attributeType="String"/>
-        <attribute name="timestamp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="sourceBundleID" optional="YES" attributeType="String"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="unit" optional="YES" attributeType="String"/>
         <attribute name="user_uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="value" optional="YES" attributeType="String"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="healthkit" inverseEntity="User"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
-                <constraint value="timestamp"/>
+                <constraint value="id"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
@@ -45,6 +48,9 @@
                 <constraint value="timestamp"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
+    </entity>
+    <entity name="StepEntity" representedClassName="StepEntity" parentEntity="HealthKitData" syncable="YES" codeGenerationType="class">
+        <attribute name="steps" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="bluetooth" optional="YES" attributeType="String"/>

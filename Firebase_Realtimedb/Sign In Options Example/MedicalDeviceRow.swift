@@ -14,7 +14,7 @@ struct MedicalDeviceRow: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            // 顯示和編輯設備名稱
+            // 顯示和編輯設備名稱we,
             HStack {
                 Text("Name:").bold()
                 TextField("Name", text: $device.name)

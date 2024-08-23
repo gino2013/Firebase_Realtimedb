@@ -10,6 +10,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // 配置Firebase
         FirebaseApp.configure()
         testCoreDataFunctionality()
+        testCoreDataInheritance() 
         return true
     }
     
