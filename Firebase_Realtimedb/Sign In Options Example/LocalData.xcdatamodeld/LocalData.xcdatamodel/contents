@@ -53,16 +53,18 @@
         <attribute name="steps" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
-        <attribute name="bluetooth" optional="YES" attributeType="String"/>
-        <attribute name="eid" optional="YES" attributeType="String"/>
+        <attribute name="capacity" optional="YES" attributeType="String"/>
+        <attribute name="cpu" optional="YES" attributeType="String"/>
         <attribute name="ios_version" optional="YES" attributeType="String"/>
         <attribute name="iphone_name" optional="YES" attributeType="String"/>
+        <attribute name="ipv4" optional="YES" attributeType="String"/>
+        <attribute name="ipv6" optional="YES" attributeType="String"/>
         <attribute name="model_number" optional="YES" attributeType="String"/>
-        <attribute name="seid" optional="YES" attributeType="String"/>
-        <attribute name="serial_number" optional="YES" attributeType="String"/>
+        <attribute name="ram" optional="YES" attributeType="String"/>
+        <attribute name="screen_size" optional="YES" attributeType="String"/>
         <attribute name="timestamp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="timezone" optional="YES" attributeType="String"/>
         <attribute name="user_uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="wifi_address" optional="YES" attributeType="String"/>
         <relationship name="device" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Device" inverseName="user" inverseEntity="Device"/>
         <relationship name="healthkit" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HealthKitData" inverseName="user" inverseEntity="HealthKitData"/>
         <uniquenessConstraints>

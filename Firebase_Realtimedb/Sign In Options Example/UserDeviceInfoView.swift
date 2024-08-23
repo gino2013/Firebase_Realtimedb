@@ -10,20 +10,6 @@ struct UserDeviceInfoView: View {
             if let deviceInfo = deviceInfo {  // 确保 deviceInfo 已被赋值
                 Section(header: Text("User Device Information")) {
                     HStack {
-                        Text("Bluetooth:")
-                        TextField("Bluetooth", text: Binding(
-                            get: { deviceInfo.bluetooth },
-                            set: { self.deviceInfo?.bluetooth = $0 }
-                        ))
-                    }
-                    HStack {
-                        Text("EID:")
-                        TextField("EID", text: Binding(
-                            get: { deviceInfo.eid },
-                            set: { self.deviceInfo?.eid = $0 }
-                        ))
-                    }
-                    HStack {
                         Text("iOS Version:")
                         TextField("iOS Version", text: Binding(
                             get: { deviceInfo.ios_version },
@@ -45,24 +31,59 @@ struct UserDeviceInfoView: View {
                         ))
                     }
                     HStack {
-                        Text("SEID:")
-                        TextField("SEID", text: Binding(
-                            get: { deviceInfo.seid },
-                            set: { self.deviceInfo?.seid = $0 }
+                        Text("Timezone:")
+                        TextField("Timezone", text: Binding(
+                            get: { deviceInfo.timezone },
+                            set: { self.deviceInfo?.timezone = $0 }
                         ))
                     }
                     HStack {
-                        Text("Serial Number:")
-                        TextField("Serial Number", text: Binding(
-                            get: { deviceInfo.serial_number },
-                            set: { self.deviceInfo?.serial_number = $0 }
+                        Text("Screen Size:")
+                        TextField("Screen Size", text: Binding(
+                            get: { deviceInfo.screen_size },
+                            set: { self.deviceInfo?.screen_size = $0 }
                         ))
                     }
                     HStack {
-                        Text("WiFi Address:")
-                        TextField("WiFi Address", text: Binding(
-                            get: { deviceInfo.wifi_address },
-                            set: { self.deviceInfo?.wifi_address = $0 }
+                        Text("IPv4 Address:")
+                        TextField("IPv4 Address", text: Binding(
+                            get: { deviceInfo.ipv4 },
+                            set: { self.deviceInfo?.ipv4 = $0 }
+                        ))
+                    }
+                    HStack {
+                        Text("IPv6 Address:")
+                        TextField("IPv6 Address", text: Binding(
+                            get: { deviceInfo.ipv6 },
+                            set: { self.deviceInfo?.ipv6 = $0 }
+                        ))
+                    }
+                    HStack {
+                        Text("Storage Capacity:")
+                        TextField("Storage Capacity", text: Binding(
+                            get: { deviceInfo.capacity },
+                            set: { self.deviceInfo?.capacity = $0 }
+                        ))
+                    }
+                    HStack {
+                        Text("RAM:")
+                        TextField("RAM", text: Binding(
+                            get: { deviceInfo.ram },
+                            set: { self.deviceInfo?.ram = $0 }
+                        ))
+                    }
+                    HStack {
+                        Text("CPU:")
+                        TextField("CPU", text: Binding(
+                            get: { deviceInfo.cpu },
+                            set: { self.deviceInfo?.cpu = $0 }
+                        ))
+                    }
+                    HStack {
+                        Text("IDFV:")
+                        TextField("IDFV", text: Binding(
+                            get: { deviceInfo.user_uuid },
+                            set: { self.deviceInfo?.user_uuid = $0 }
                         ))
                     }
                 }
@@ -84,7 +105,7 @@ struct UserDeviceInfoView: View {
                         .cornerRadius(8)
                         .scaleEffect(isSaving ? 0.95 : 1.0)  // 按下时稍微缩小按钮
                 }
-                .disabled(deviceInfo.bluetooth.isEmpty || deviceInfo.eid.isEmpty) // 这里可以检查必填项是否为空
+                .disabled(deviceInfo.ios_version.isEmpty || deviceInfo.iphone_name.isEmpty) // 这里可以检查必填项是否为空
             } else {
                 Text("Loading device information...")
             }

@@ -18,16 +18,18 @@ class UserDeviceViewModel: ObservableObject {
             if let dict = snapshot.value as? [String: Any] {
                 // 从 Firebase 数据创建 UserDevice 对象
                 let fetchedUserDevice = UserDevice(
-                    bluetooth: dict["bluetooth"] as? String ?? "",
-                    eid: dict["eid"] as? String ?? "",
                     ios_version: dict["ios_version"] as? String ?? "",
                     iphone_name: dict["iphone_name"] as? String ?? "",
                     model_number: dict["model_number"] as? String ?? "",
-                    seid: dict["seid"] as? String ?? "",
-                    serial_number: dict["serial_number"] as? String ?? "",
                     timestamp: dict["timestamp"] as? Double ?? Date().timeIntervalSince1970,
                     user_uuid: dict["user_uuid"] as? String ?? UUID().uuidString,
-                    wifi_address: dict["wifi_address"] as? String ?? ""
+                    timezone: dict["timezone"] as? String ?? "",
+                    screen_size: dict["screen_size"] as? String ?? "",
+                    ipv4: dict["ipv4"] as? String ?? "Unavailable",
+                    ipv6: dict["ipv6"] as? String ?? "Unavailable",
+                    capacity: dict["capacity"] as? String ?? "Unavailable",
+                    ram: dict["ram"] as? String ?? "Unavailable",
+                    cpu: dict["cpu"] as? String ?? "Unavailable"
                 )
                 self.userDevice = fetchedUserDevice
                 // 存入 Core Data
@@ -51,30 +53,46 @@ class UserDeviceViewModel: ObservableObject {
     }
 
     func saveToCoreData(userDevice: UserDevice) {
-        let newUser = User(context: self.context)
-        newUser.bluetooth = userDevice.bluetooth
-        newUser.eid = userDevice.eid
-        newUser.ios_version = userDevice.ios_version
-        newUser.iphone_name = userDevice.iphone_name
-        newUser.model_number = userDevice.model_number
-        newUser.seid = userDevice.seid
-        newUser.serial_number = userDevice.serial_number
-        newUser.timestamp = userDevice.timestamp
-        // 將 String 轉換為 UUID
-        if let uuid = UUID(uuidString: userDevice.user_uuid) {
-            newUser.user_uuid = uuid
-        } else {
-            newUser.user_uuid = UUID() // 如果轉換失敗，使用一個新的 UUID
-        }
-        newUser.wifi_address = userDevice.wifi_address
+        // 先检查是否已存在具有相同 user_uuid 的记录
+        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "user_uuid == %@", userDevice.user_uuid)
 
         do {
+            let fetchedUsers = try context.fetch(fetchRequest)
+            let userToSave: User
+
+            if let existingUser = fetchedUsers.first {
+                // 如果记录存在，更新它
+                userToSave = existingUser
+            } else {
+                // 否则创建一个新的 User 实体
+                userToSave = User(context: self.context)
+            }
+
+            // 更新或插入数据
+            userToSave.ios_version = userDevice.ios_version
+            userToSave.iphone_name = userDevice.iphone_name
+            userToSave.model_number = userDevice.model_number
+            userToSave.timestamp = userDevice.timestamp
+            userToSave.user_uuid = UUID(uuidString: userDevice.user_uuid) ?? UUID()
+            userToSave.timezone = userDevice.timezone
+            userToSave.screen_size = userDevice.screen_size
+            userToSave.ipv4 = userDevice.ipv4
+            userToSave.ipv6 = userDevice.ipv6
+            userToSave.capacity = userDevice.capacity
+            userToSave.ram = userDevice.ram
+            userToSave.cpu = userDevice.cpu
+
+            // 保存数据
             try context.save()
             print("User device successfully saved to Core Data.")
             // 测试从 Core Data 中获取数据
-            self.fetchSavedUser(userUUID: newUser.user_uuid!)
+            self.fetchSavedUser(userUUID: userToSave.user_uuid!)
         } catch {
             print("Failed to save user device to Core Data: \(error.localizedDescription)")
+            if let nserror = error as NSError? {
+                print("Detailed error: \(nserror), \(nserror.userInfo)")
+            }
         }
     }
 
@@ -86,16 +104,18 @@ class UserDeviceViewModel: ObservableObject {
             let fetchedUsers = try context.fetch(fetchRequest)
             if let fetchedUser = fetchedUsers.first {
                 print("Fetched user device from Core Data:")
-                print("Bluetooth: \(fetchedUser.bluetooth ?? "N/A")")
-                print("EID: \(fetchedUser.eid ?? "N/A")")
                 print("iOS Version: \(fetchedUser.ios_version ?? "N/A")")
                 print("iPhone Name: \(fetchedUser.iphone_name ?? "N/A")")
                 print("Model Number: \(fetchedUser.model_number ?? "N/A")")
-                print("SEID: \(fetchedUser.seid ?? "N/A")")
-                print("Serial Number: \(fetchedUser.serial_number ?? "N/A")")
+                print("Timezone: \(fetchedUser.timezone ?? "N/A")")
+                print("Screen Size: \(fetchedUser.screen_size ?? "N/A")")
+                print("IPv4 Address: \(fetchedUser.ipv4 ?? "N/A")")
+                print("IPv6 Address: \(fetchedUser.ipv6 ?? "N/A")")
+                print("Storage Capacity: \(fetchedUser.capacity ?? "N/A")")
+                print("RAM: \(fetchedUser.ram ?? "N/A")")
+                print("CPU: \(fetchedUser.cpu ?? "N/A")")
                 print("Timestamp: \(fetchedUser.timestamp)")
-                print("UUID: \(fetchedUser.user_uuid)")
-                print("WiFi Address: \(fetchedUser.wifi_address ?? "N/A")")
+                print("iDFV: \(fetchedUser.user_uuid ?? UUID())")
             } else {
                 print("No user device found with UUID: \(userUUID)")
             }
@@ -116,36 +136,119 @@ class UserDeviceViewModel: ObservableObject {
         return modelCode ?? "Unknown"
     }
     
+    // 获取 IP 地址
+    enum IPVersion {
+        case ipv4
+        case ipv6
+    }
+
+    func getIPAddress(for version: IPVersion) -> String? {
+        var address: String?
+        var ifaddr: UnsafeMutablePointer<ifaddrs>?
+        
+        // 获取网络接口列表
+        if getifaddrs(&ifaddr) == 0, let firstAddr = ifaddr {
+            for ptr in sequence(first: firstAddr, next: { $0.pointee.ifa_next }) {
+                let interface = ptr.pointee
+                let addrFamily = interface.ifa_addr.pointee.sa_family
+                let ipVersion = version == .ipv4 ? AF_INET : AF_INET6
+                
+                // 检查接口名称是否是你所需的
+                let name = String(cString: interface.ifa_name)
+                if name == "en0" || name == "pdp_ip0" {
+                    if addrFamily == UInt8(ipVersion) {
+                        var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+                        getnameinfo(interface.ifa_addr, socklen_t(interface.ifa_addr.pointee.sa_len),
+                                    &hostname, socklen_t(hostname.count), nil, socklen_t(0), NI_NUMERICHOST)
+                        address = String(cString: hostname)
+                        break
+                    }
+                }
+            }
+            freeifaddrs(ifaddr)
+        }
+        return address
+    }
+
+    // 获取存储容量
+    func getDeviceStorageCapacity() -> String {
+        let fileManager = FileManager.default
+        do {
+            let attributes = try fileManager.attributesOfFileSystem(forPath: NSHomeDirectory())
+            if let capacity = attributes[.systemSize] as? NSNumber {
+                return ByteCountFormatter.string(fromByteCount: capacity.int64Value, countStyle: .file)
+            }
+        } catch {
+            return "Unavailable"
+        }
+        return "Unavailable"
+    }
+
+    // 获取 RAM 大小
+    func getDeviceRAM() -> String {
+        let physicalMemory = ProcessInfo.processInfo.physicalMemory
+        return ByteCountFormatter.string(fromByteCount: Int64(physicalMemory), countStyle: .memory)
+    }
+
+    // 获取 CPU 信息
+    func getDeviceCPU() -> String {
+        var size = 0
+        sysctlbyname("hw.ncpu", nil, &size, nil, 0)
+        var ncpu = 0
+        sysctlbyname("hw.ncpu", &ncpu, &size, nil, 0)
+        return "\(ncpu) cores"
+    }
+    
     func collectDeviceInformation() -> UserDevice {
-        let userUUID = UUID().uuidString
+        let userUUID = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
         let timestamp = Date().timeIntervalSince1970
 
         let iosVersion = UIDevice.current.systemVersion
         let iphoneName = UIDevice.current.name
         let modelNumber = getDeviceModel()
 
-        // 無法獲取的信息可以設置為空字符串
-        let bluetooth = ""
-        let eid = ""
-        let seid = ""
-        let serialNumber = ""
-        let wifiAddress = ""
+//        // 無法獲取的信息可以設置為空字符串
+//        let bluetooth = ""
+//        let eid = ""
+//        let seid = ""
+//        let serialNumber = ""
+//        let wifiAddress = ""
+        
+        // 新增的屬性
+        let timezone = TimeZone.current.identifier
+        let screenSize = "\(UIScreen.main.bounds.size.width)x\(UIScreen.main.bounds.size.height)"
+        let ipv4 = getIPAddress(for: .ipv4) ?? "Unavailable"
+        let ipv6 = getIPAddress(for: .ipv6) ?? "Unavailable"
+        let capacity = getDeviceStorageCapacity()
+        let ram = getDeviceRAM()
+        let cpu = getDeviceCPU()
+        
+//        // 打印每个属性
+//        print("Timezone: \(timezone)")
+//        print("Screen Size: \(screenSize)")
+//        print("IPv4 Address: \(ipv4)")
+//        print("IPv6 Address: \(ipv6)")
+//        print("Storage Capacity: \(capacity)")
+//        print("RAM: \(ram)")
+//        print("CPU: \(cpu)")
 
         return UserDevice(
-            bluetooth: bluetooth,
-            eid: eid,
             ios_version: iosVersion,
             iphone_name: iphoneName,
             model_number: modelNumber,
-            seid: seid,
-            serial_number: serialNumber,
             timestamp: timestamp,
             user_uuid: userUUID,
-            wifi_address: wifiAddress
+            timezone: timezone,
+            screen_size: screenSize,
+            ipv4: ipv4,
+            ipv6: ipv6,
+            capacity: capacity,
+            ram: ram,
+            cpu: cpu
         )
+
     }
 }
-
 
 //import FirebaseDatabase
 //import SwiftUI
