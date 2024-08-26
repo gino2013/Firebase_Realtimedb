@@ -51,7 +51,7 @@ class UserDeviceViewModel: ObservableObject {
             }
         }
     }
-
+    
     func saveToCoreData(userDevice: UserDevice) {
         // 先检查是否已存在具有相同 user_uuid 的记录
         let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
@@ -83,6 +83,21 @@ class UserDeviceViewModel: ObservableObject {
             userToSave.ram = userDevice.ram
             userToSave.cpu = userDevice.cpu
 
+            // 打印所有属性
+            print("Saving user device to Core Data with the following values:")
+            print("iOS Version: \(userToSave.ios_version ?? "N/A")")
+            print("iPhone Name: \(userToSave.iphone_name ?? "N/A")")
+            print("Model Number: \(userToSave.model_number ?? "N/A")")
+            print("Timestamp: \(userToSave.timestamp)")
+            print("User UUID: \(userToSave.user_uuid ?? UUID())")
+            print("Timezone: \(userToSave.timezone ?? "N/A")")
+            print("Screen Size: \(userToSave.screen_size ?? "N/A")")
+            print("IPv4: \(userToSave.ipv4 ?? "N/A")")
+            print("IPv6: \(userToSave.ipv6 ?? "N/A")")
+            print("Storage Capacity: \(userToSave.capacity ?? "N/A")")
+            print("RAM: \(userToSave.ram ?? "N/A")")
+            print("CPU: \(userToSave.cpu ?? "N/A")")
+
             // 保存数据
             try context.save()
             print("User device successfully saved to Core Data.")
@@ -95,6 +110,51 @@ class UserDeviceViewModel: ObservableObject {
             }
         }
     }
+
+
+//    func saveToCoreData(userDevice: UserDevice) {
+//        // 先检查是否已存在具有相同 user_uuid 的记录
+//        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+//        fetchRequest.predicate = NSPredicate(format: "user_uuid == %@", userDevice.user_uuid)
+//
+//        do {
+//            let fetchedUsers = try context.fetch(fetchRequest)
+//            let userToSave: User
+//
+//            if let existingUser = fetchedUsers.first {
+//                // 如果记录存在，更新它
+//                userToSave = existingUser
+//            } else {
+//                // 否则创建一个新的 User 实体
+//                userToSave = User(context: self.context)
+//            }
+//
+//            // 更新或插入数据
+//            userToSave.ios_version = userDevice.ios_version
+//            userToSave.iphone_name = userDevice.iphone_name
+//            userToSave.model_number = userDevice.model_number
+//            userToSave.timestamp = userDevice.timestamp
+//            userToSave.user_uuid = UUID(uuidString: userDevice.user_uuid) ?? UUID()
+//            userToSave.timezone = userDevice.timezone
+//            userToSave.screen_size = userDevice.screen_size
+//            userToSave.ipv4 = userDevice.ipv4
+//            userToSave.ipv6 = userDevice.ipv6
+//            userToSave.capacity = userDevice.capacity
+//            userToSave.ram = userDevice.ram
+//            userToSave.cpu = userDevice.cpu
+//
+//            // 保存数据
+//            try context.save()
+//            print("User device successfully saved to Core Data.")
+//            // 测试从 Core Data 中获取数据
+//            self.fetchSavedUser(userUUID: userToSave.user_uuid!)
+//        } catch {
+//            print("Failed to save user device to Core Data: \(error.localizedDescription)")
+//            if let nserror = error as NSError? {
+//                print("Detailed error: \(nserror), \(nserror.userInfo)")
+//            }
+//        }
+//    }
 
     func fetchSavedUser(userUUID: UUID) {
         let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
